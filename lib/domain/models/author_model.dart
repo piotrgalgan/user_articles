@@ -1,23 +1,23 @@
-class AuthorModel {
-  const AuthorModel({
-    required this.id,
-    required this.picture,
-    required this.firstName,
-    required this.lastName,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int id;
-  final String picture;
-  final String firstName;
-  final String lastName;
+part 'author_model.g.dart';
+part 'author_model.freezed.dart';
+
+@freezed
+class AuthorModel with _$AuthorModel {
+  const AuthorModel._();
+   @JsonSerializable(fieldRename: FieldRename.snake)
+  factory AuthorModel(
+    int id,
+    String firstName,
+    String lastName,
+    String picture,
+  ) = _AuthorModel;
+
+  factory AuthorModel.fromJson(Map<String, dynamic> json) =>
+      _$AuthorModelFromJson(json);
 
   String get name {
     return '$firstName $lastName';
   }
-
-  AuthorModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        picture = json['picture'],
-        firstName = json['first_name'],
-        lastName = json['last_name'];
 }
